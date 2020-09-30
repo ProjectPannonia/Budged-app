@@ -13,8 +13,8 @@ let budgetController = (function() {
         this.description = description;
         this.value = value;
     };
-
-    ID = data.allItems[type][data.allItems[type].length - 1]
+    
+    // Create new item based on 'inc' or 'exp' type
     let data = {
         allItems: {
             exp: [],
@@ -29,17 +29,21 @@ let budgetController = (function() {
     return {
         addItem: function(type, des, val) {
             let newItem, ID;
-            
-            
-            ID = 0;
 
+            // Create new ID
+            ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
+
+            // Create new item based on 'inc' or 'exp' type
             if (type === 'exp') {
                 newItem = new Expense(ID, des, val);
             } else if (type === 'inc') {
                 newItem = new Income(ID, des, val);
             }
-
+            
+            // Push it into our data structure
             data.allItems[type].push(newItem);
+
+            // Return the new element
             return newItem;
             
         }
