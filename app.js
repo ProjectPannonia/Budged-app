@@ -14,7 +14,8 @@ let budgetController = (function() {
         this.value = value;
     };
 
-    ID = data.allItems[type][data.allItems[type].length - 1]
+    
+
     let data = {
         allItems: {
             exp: [],
@@ -26,28 +27,36 @@ let budgetController = (function() {
         }
     };
 
+    // Budget controller public methods
     return {
         addItem: function(type, des, val) {
             let newItem, ID;
             
+            // Calculate next valid ID
+            if(data.allItems[type].length > 0) {
+                ID = data.allItems[type][data.allItems[type].length - 1];
+            } else {
+                ID = 0;
+            }
             
-            ID = 0;
-
             if (type === 'exp') {
                 newItem = new Expense(ID, des, val);
             } else if (type === 'inc') {
                 newItem = new Income(ID, des, val);
             }
-
-            data.allItems[type].push(newItem);
-            return newItem;
             
+            // Store the new item 
+            data.allItems[type].push(newItem);
+
+
+            return newItem;
         }
-    }
+    };
     
 })();
 
-// UI CONTROLLER
+
+// User interface  controller
 let UIController = (function() {
 
     let DOMstrings = {
@@ -55,8 +64,12 @@ let UIController = (function() {
         inputDescription: '.add__description',
         inputValue: '.add__value',
         inputBtn: '.add__btn'
-    }
+    };
+
+    // User interface public methods
     return {
+
+        // Get input data from user interface
         getInput: function() {
             return {
                 type: document.querySelector(DOMstrings.inputType).value, // Will be either inc or exp
@@ -64,18 +77,37 @@ let UIController = (function() {
                 value: document.querySelector(DOMstrings.inputValue).value
             };
         },
-        getDOMstring: function() {
+
+        clearField: function() {
+            document.querySelectorAll
+        },
+        
+        addListItem: function(obj, type) {
+            let html;
+            
+            // Create HTML string with placeholder text
+            '<div class="item clearfix" id="income-0"> <div class="item__description">Salary</div><div class="right clearfix"><div class="item__value">+ 2,100.00</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+
+            // Replace the placeholder text with some actual data
+
+
+            // Insert the HTML into the DOM
+
+
+        },
+        getDOMstrings: function() {
             return DOMstrings;
         }
     };
 
 })();
 
-// GLOBAL APP CONTROLLER
+
+// Global app controller
 let controller = (function(budgetCtrl, UICtrl) {
 
     let setupEventListeners = function() {
-        let DOM = UICtrl.getDOMstring();
+        let DOM = UICtrl.getDOMstrings();
 
         document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
 
@@ -104,6 +136,7 @@ let controller = (function(budgetCtrl, UICtrl) {
         // 5. Display the budget on the UI
     }
 
+    // Global controller public methods
     return {
         init: function() {
             console.log('Application has started.');
