@@ -72,9 +72,9 @@ let UIController = (function() {
     return {
         getInput: function() {
             return {
-                type: document.querySelector(DOMstrings.inputType).value, // Will be either inc or exp
+                type: document.querySelector(DOMstrings.inputType).value, 
                 description: document.querySelector(DOMstrings.inputDescription).value,
-                value: document.querySelector(DOMstrings.inputValue).value
+                value: parseFloat(document.querySelector(DOMstrings.inputValue).value)
             };
         },
 
@@ -113,7 +113,7 @@ let UIController = (function() {
                 current.value = "";
             });
             
-            // Focus back to the inputfield
+            // Focus back to the inputfield after element created
             fieldsArr[0].focus();
             
         },
@@ -143,7 +143,14 @@ let controller = (function(budgetCtrl, UICtrl) {
     };
 
 
-    
+    let updateBudget = function() {
+        // 1. Calculate the budget
+
+        // 2. Return the budget
+
+        // 3. Display the budget on the UI
+
+    };
 
     let ctrlAddItem = function() {
         let input, newItem;
@@ -151,19 +158,22 @@ let controller = (function(budgetCtrl, UICtrl) {
         // 1. Get the field input data
         input = UICtrl.getInput();
     
-        // 2. Add the item to the budget controller
-        newItem = budgetCtrl.addItem(input.type, input.description, input.value);
+        if (input.description !== "" && !isNaN(input.value) && input.value > 0) {
 
-        // 3. Add the item to the UI
-        UIController.addListItem(newItem, input.type);
+            // 2. Add the item to the budget controller
+            newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
-        // 4. Clear the fields
-        UIController.clearFields();
+            // 3. Add the item to the UI
+            UIController.addListItem(newItem, input.type);
 
-        // 4. Calculate the budget
+            // 4. Clear the fields
+            UIController.clearFields();
 
-        // 5. Display the budget on the UI
-    }
+            // 5. Calculate and update budget
+            updateBudget();
+        }
+        
+    };
 
     // Public methods of global app controller
     return {
