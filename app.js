@@ -66,8 +66,19 @@ let budgetController = (function() {
             
         },
 
-        calculateBudget: function() {
+        deleteBudget: function(type, id) {
+            let ids, index;
+            // id = 3
+            //data.allItems[type][id]
             
+            ids = data.allItems[type].map(function(current) {
+                return current.id;
+            });
+            
+            index = ids.indexOf(id);
+        },
+
+        calculateBudget: function() {
             // Calculate total income and expenses
             calculateTotal('exp');
             calculateTotal('inc');
@@ -82,7 +93,6 @@ let budgetController = (function() {
             } else {
                 data.percentage = -1;
             }
-
         },
 
         getBudget: function() {
@@ -257,7 +267,7 @@ let controller = (function(budgetCtrl, UICtrl) {
             // 2. Delete the item from the UI
 
             // 3. Update and show the new budget
-            
+
         }
     };
 
