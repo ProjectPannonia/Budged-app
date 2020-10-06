@@ -116,7 +116,7 @@ let budgetController = (function() {
             } else {
                 data.percentage = -1;
             }
-            
+
         },
 
         calculatePercentages: function() {
@@ -266,6 +266,36 @@ let UIController = (function() {
                     current.textContent = '---';
                 }
             });
+        },
+
+        formatNumber: function(num, type) {
+            let numSplit, int, dec;
+
+            /*
+            + or - before number
+            exactly 2 decimal points
+            comma separating the thousands
+
+            2310.4567 -> 2,310.46
+            2000 -> 2,000.00
+            */
+
+            num = Math.abs(num);
+            num = num.toFixed(2);
+
+            numSplit = num.split('.');
+            
+            int = numSplit[0];
+
+            if(int.length > 3) {
+                int = int.substr(0, int.length - 3) + ', ' + int.substr(int.length - 3, 3);
+            }
+
+            dec = numSplit[1];
+            
+            type === 'exp' ? sign = '-' : sign = '+';
+
+            return type + ' ' + int + dec;
         },
 
         getDOMstring: function() {
