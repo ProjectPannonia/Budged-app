@@ -295,6 +295,12 @@ let UIController = (function() {
                 }
             });
         },
+        displayMonth: function() {
+
+            let now = new Date();
+            
+
+        },
 
         getDOMstring: function() {
             return DOMstrings;
