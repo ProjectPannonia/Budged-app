@@ -20,9 +20,7 @@ let budgetController = (function() {
     };
 
     Expense.prototype.getPercentage = function() {
-
         return this.percentage;
-
     };
 
     let Income = function(id, description, value) {
@@ -94,7 +92,7 @@ let budgetController = (function() {
             
             index = ids.indexOf(id);
 
-            if ( index !== -1) {
+            if (index !== -1) {
                 data.allItems[type].splice(index, 1);
             }
         },
@@ -131,6 +129,7 @@ let budgetController = (function() {
             */
 
             data.allItems.exp.forEach(function(cur) {
+                //cur.calcPercentage(data.totals.inc);
                 cur.calcPercentage(data.totals.inc);
             });
         },
